@@ -2,42 +2,49 @@
 
 namespace CodeProject\Http\Controllers;
 
-use CodeProject\Client;
+use CodeProject\Repositories\ClientRepository;
 use Illuminate\Http\Request;
-use CodeProject\Http\Requests;
-use PhpSpec\Exception\Exception;
 
 
 class ClientController extends Controller
 {
+    /**
+     * @var ClientRepository
+     */
+    private $repository;
+
+    public function __construct(ClientRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function index()
     {
-        return Client::all();
+        return $this->repository->all();
     }
 
     public function store(Request $request)
     {
-        Client::create($request->all());
-        return response()->json(['Client não encontrado']);
+        return $this->repository->create($request->all());
     }
 
     public function show($id)
     {
-        return Client::find($id);
+        return $this->repository->find($id);
     }
 
     public function destroy($id)
     {
-        if(Client::find($id)->delete())
+        if($this->repository->find($id)->delete())
         {
-            return response()->json('Client deletado com sucesso');
+            return response()->json(['Client deletado com sucesso']);
         }
         return response()->json(['Client não encontrado']);
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
-        Client::find($id)->update($request->all());
-        return Client::find($id);
+        $this->repository->find($id)->update($request->all());
+        return $this->repository->find($id);
     }
 }
