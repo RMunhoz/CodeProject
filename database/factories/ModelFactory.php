@@ -12,6 +12,7 @@
 */
 
 use CodeProject\Entities\Client;
+use CodeProject\Entities\Project;
 use CodeProject\Entities\User;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
@@ -31,5 +32,17 @@ $factory->define(Client::class, function (Faker\Generator $faker) {
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,
         'obs' => $faker->sentence,
+    ];
+});
+
+$factory->define(Project::class, function(Faker\Generator $faker){
+    return [
+        'owner_id' => $faker->numberBetween(1, 10),
+        'client_id' => $faker->numberBetween(1, 10),
+        'name' => $faker->name,
+        'description' => $faker->sentence,
+        'progress' => $faker->randomNumber(2),
+        'status' => $faker->randomNumber(2),
+        'due_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
     ];
 });
