@@ -16,6 +16,11 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
     /**
      * The database table used by the model.
      *

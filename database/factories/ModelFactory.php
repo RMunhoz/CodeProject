@@ -41,8 +41,8 @@ $factory->define(Project::class, function(Faker\Generator $faker){
         'client_id' => $faker->numberBetween(1, 10),
         'name' => $faker->name,
         'description' => $faker->sentence,
-        'progress' => $faker->randomNumber(2),
-        'status' => $faker->randomNumber(2),
+        'progress' => $faker->numberBetween(1, 100),
+        'status' => $faker->randomElement(['Não iniciado', 'Iniciado', 'Completo']),
         'due_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
     ];
 });
