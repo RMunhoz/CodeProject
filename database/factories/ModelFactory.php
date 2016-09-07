@@ -13,6 +13,7 @@
 
 use CodeProject\Entities\Client;
 use CodeProject\Entities\Project;
+use CodeProject\Entities\ProjectNote;
 use CodeProject\Entities\User;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
@@ -44,5 +45,13 @@ $factory->define(Project::class, function(Faker\Generator $faker){
         'progress' => $faker->numberBetween(1, 100),
         'status' => $faker->randomElement(['Não iniciado', 'Iniciado', 'Completo']),
         'due_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
+    ];
+});
+
+$factory->define(ProjectNote::class, function(Faker\Generator $faker){
+    return [
+        'project_id' => rand(1, 10),
+        'title' => $faker->word,
+        'note' => $faker->paragraph,
     ];
 });
