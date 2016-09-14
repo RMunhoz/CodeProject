@@ -48,6 +48,16 @@ class ProjectController extends Controller
     {
         return $this->repository->find($id);
     }
+    
+    public function showTasks($id)
+    {
+        return $this->service->showTasks($id);
+    }
+
+    public function showMembers($id)
+    {
+        return $this->service->showMembers($id);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -76,4 +86,5 @@ class ProjectController extends Controller
             return response()->json(['Project não encontrado']);
         }
     }
+    
 }
