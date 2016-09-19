@@ -48,11 +48,6 @@ class ProjectController extends Controller
     {
         return $this->repository->find($id);
     }
-    
-    public function showTasks($id)
-    {
-        return $this->service->showTasks($id);
-    }
 
     public function showMembers($id)
     {
