@@ -13,7 +13,7 @@
 
 use CodeProject\Entities\Client;
 use CodeProject\Entities\Project;
-use CodeProject\Entities\ProjectMembers;
+use CodeProject\Entities\ProjectMember;
 use CodeProject\Entities\ProjectNote;
 use CodeProject\Entities\ProjectTask;
 use CodeProject\Entities\User;
@@ -68,9 +68,9 @@ $factory->define(ProjectTask::class, function(Faker\Generator $faker){
     ];
 });
 
-$factory->define(ProjectMembers::class, function(Faker\Generator $faker){
+$factory->define(ProjectMember::class, function(Faker\Generator $faker){
     return [
         'project_id' => rand(1, 10),
-        'user_id' => rand(1, 10),
+        'member_id' => rand(1, 11),
     ];
 });
