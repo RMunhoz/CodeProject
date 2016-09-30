@@ -2,6 +2,7 @@
 
 namespace CodeProject\Repositories;
 
+use CodeProject\Presenters\ProjectTaskPresenters;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use CodeProject\Repositories\ProjectTaskRepository;
@@ -33,6 +34,11 @@ class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTas
     {
 
         return ProjectTaskValidator::class;
+    }
+
+    public function presenter()
+    {
+        return ProjectTaskPresenters::class;
     }
 
 

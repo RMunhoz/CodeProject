@@ -38,6 +38,8 @@ Route::group(['middleware'=>'oauth'], function(){
 
         Route::get('{id}/members', 'ProjectController@showMembers');
 
+        Route::post('{id}/file', 'ProjectFileController@store');
+
     });
 
 });
