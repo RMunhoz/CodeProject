@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class OAuthClientSeeder extends Seeder
 {
@@ -11,6 +12,10 @@ class OAuthClientSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('oauth_clients')->insert([
+            'id' => 'appid1',
+            'secret' => 'secret',
+            'name' => 'AngularAPP',
+        ]);
     }
 }
