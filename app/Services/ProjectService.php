@@ -157,5 +157,4 @@ class ProjectService
         $this->storage->put($projectFile->id. "." .$data['extension'], $this->filesystem->get($data['file']));
     }
 
-
 }
