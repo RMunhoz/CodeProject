@@ -3,13 +3,10 @@
 namespace CodeProject\Http\Controllers;
 
 use CodeProject\Repositories\ProjectFileRepository;
-use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Services\ProjectFileService;
-use CodeProject\Services\ProjectService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectFileController extends Controller
@@ -17,33 +14,21 @@ class ProjectFileController extends Controller
     /**
      * @var ProjectFileRepository
      */
-    private $fileRepository;
-    /**
-     * @var ProjectFileService
-     */
-    private $fileService;
-    /**
-     * @var ProjectRepository
-     */
     private $repository;
     /**
      * @var ProjectFileService
      */
     private $service;
 
-    public function __construct(ProjectFileRepository $fileRepository, ProjectFileService $fileService,
-                                ProjectRepository $repository, ProjectService $service)
+    public function __construct(ProjectFileRepository $repository, ProjectFileService $service)
     {
-
-        $this->fileRepository = $fileRepository;
-        $this->fileService = $fileService;
         $this->repository = $repository;
         $this->service = $service;
     }
 
     public function index($id)
     {
-        return $this->fileRepository->findWhere(['project_id' => $id]);
+        return $this->repository->findWhere(['project_id' => $id]);
     }
 
     public function store(Request $request)
@@ -70,7 +55,7 @@ class ProjectFileController extends Controller
             $data['project_id'] = $request->project_id;
             $data['description'] = $request->description;
 
-            return $this->fileService->createFile($data);
+            return $this->service->createFile($data);
 
         } catch(ModelNotFoundException $ex) {
             return [
@@ -84,11 +69,11 @@ class ProjectFileController extends Controller
     {
         try {
 
-            if (!$this->fileService->checkProjectPermissions($id)){
+            if (!$this->service->checkProjectPermissions($id)){
                 return ['error' => 'Access Forbidden'];
             }
 
-            $group = $this->fileRepository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $fileId]);
+            $group = $this->repository->skipPresenter()->findWhere(['project_id' => $id, 'id' => $fileId]);
 
             if($group->isEmpty()){
                 return [
@@ -97,7 +82,7 @@ class ProjectFileController extends Controller
                 ];
             }else{
                 $object = $group->first();
-                if ($this->fileService->deleteFile($object->id.'.'.$object->extension)){
+                if ($this->service->deleteFile($object->id.'.'.$object->extension)){
                     $object->delete();
                     return [
                         'deleted success'

@@ -11,11 +11,10 @@ namespace CodeProject\Services;
 use CodeProject\Repositories\ProjectFileRepository;
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectFileValidator;
+use Illuminate\Contracts\Filesystem\Factory as Storage;
+use Illuminate\Filesystem\Filesystem;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Prettus\Validator\Exceptions\ValidatorException;
-
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Contracts\Filesystem\Factory as Storage;
 
 class ProjectFileService
 {
@@ -77,7 +76,7 @@ class ProjectFileService
 
     public function createFile(array $data)
     {
-        $project = $this->repository->skipPresenter()->find($data['project_id']);
+        $project = $this->projectRepository->skipPresenter()->find($data['project_id']);
         $projectFile = $project->files()->create($data);
         $this->storage->put($projectFile->id. "." .$data['extension'], $this->filesystem->get($data['file']));
     }
@@ -85,22 +84,6 @@ class ProjectFileService
     public function deleteFile($file)
     {
         return $this->storage->delete($file);
-    }
-    
-//    public function delete($id)
-//    {
-//        if ($projectFile = $this->repository->skipPresenter()->find($id)){
-//            $this->storage->exists($projectFile->getFileName($id));
-//            $this->storage->delete($projectFile->getFileName($id));
-//        }
-//            return $projectFile->delete();
-//    }
-
-
-    public function getFileName($id)
-    {
-//        $projectFile = $this->repository->skipPresenter()->find($id);
-//        return $projectFile->getFileName();
     }
 
     public function checkProjectOwner($projectFileId)
