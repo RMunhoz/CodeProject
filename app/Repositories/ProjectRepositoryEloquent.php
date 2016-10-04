@@ -2,12 +2,9 @@
 
 namespace CodeProject\Repositories;
 
+use CodeProject\Entities\Project;
 use CodeProject\Presenters\ProjectPresenters;
 use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use CodeProject\Repositories\ProjectRepository;
-use CodeProject\Entities\Project;
-use CodeProject\Validators\ProjectValidator;
 
 /**
  * Class ProjectRepositoryEloquent

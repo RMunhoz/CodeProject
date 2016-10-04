@@ -11,11 +11,11 @@ use League\Fractal\TransformerAbstract;
  */
 class ProjectFileTransformers extends TransformerAbstract
 {
-
+    
     public function transform(ProjectFile $projectFile)
     {
         return [
-            'id' => $projectFile->id,
+            'file_id' => $projectFile->id,
             'name' => $projectFile->name,
             'extension' => $projectFile->extension,
             'description' => $projectFile->description,

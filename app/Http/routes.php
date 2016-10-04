@@ -38,18 +38,10 @@ Route::group(['middleware'=>'oauth'], function(){
 
         Route::get('{id}/members', 'ProjectController@showMembers');
 
-//        Route::post('{id}/file', 'ProjectFileController@store');
-//        Route::get('{id}/file', 'ProjectFileController@index');
-//        Route::get('{id}/file/{fileId}', 'ProjectFileController@show');
-//        Route::put('{id}/file/{fileId}', 'ProjectFileController@update');
-//        Route::delete('{id}/file/{fileId}', 'ProjectFileController@destroy');
-
         Route::get('{id}/file', 'ProjectFileController@index');
         Route::get('file/{fileId}', 'ProjectFileController@show');
-        Route::get('file/{fileId}/download', 'ProjectFileController@showFile');
         Route::post('{id}/file', 'ProjectFileController@store');
-        Route::put('file/{fileId}', 'ProjectFileController@update');
-        Route::delete('file/{fileId}', 'ProjectFileController@destroy');
+        Route::delete('{id}/file/{fileId}', 'ProjectFileController@destroy');
 
     });
 

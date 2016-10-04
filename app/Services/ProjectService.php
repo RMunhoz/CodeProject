@@ -150,11 +150,4 @@ class ProjectService
         }
     }
 
-    public function createFile(array $data)
-    {
-        $project = $this->repository->skipPresenter()->find($data['project_id']);
-        $projectFile = $project->files()->create($data);
-        $this->storage->put($projectFile->id. "." .$data['extension'], $this->filesystem->get($data['file']));
-    }
-
 }

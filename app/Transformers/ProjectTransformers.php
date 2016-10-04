@@ -13,8 +13,7 @@ use League\Fractal\TransformerAbstract;
 
 class ProjectTransformers extends TransformerAbstract
 {
-
-    protected $defaultIncludes = ['members'];
+    protected $defaultIncludes = ['members', 'files'];
 
     public function transform(Project $project)
     {
@@ -33,6 +32,11 @@ class ProjectTransformers extends TransformerAbstract
     public function includeMembers(Project $project)
     {
         return $this->collection($project->members, new ProjectMemberTransformers());
+    }
+
+    public function includeFiles(Project $project)
+    {
+        return $this->collection($project->files, new ProjectFileTransformers());
     }
 
 }
